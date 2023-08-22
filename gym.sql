@@ -1,0 +1,64 @@
+
+DROP DATABASE IF EXISTS gym;
+CREATE DATABASE gym;
+USE gym;
+
+
+
+CREATE TABLE Users (
+  Id INT AUTO_INCREMENT,
+  Username VARCHAR(100) NOT NULL UNIQUE,
+  Password VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE Trainers (
+  Id INT AUTO_INCREMENT,
+  FirstName VARCHAR(50) NOT NULL,
+  LastName VARCHAR(50),
+  Salary VARCHAR(8) NOT NULL,
+  TrainersHeight VARCHAR(8),
+  TrainersWeight VARCHAR(8),
+  UserId INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Trainees (
+  Id INT AUTO_INCREMENT,
+  FirstName VARCHAR(50) NOT NULL,
+  LastName VARCHAR(50),
+  SubscriptionType VARCHAR(8) NOT NULL,
+  TrainersHeight VARCHAR(8),
+  TrainersWeight VARCHAR(8),
+  UserId INT ,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Product (
+  Id INT AUTO_INCREMENT,
+  ProductName VARCHAR(50) NOT NULL UNIQUE,
+  ProductType INT NOT NULL,
+  TrainerId INT ,
+  TraineeId INT ,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE Trainers
+ADD FOREIGN KEY (UserId)
+REFERENCES Users(Id);
+
+
+ALTER TABLE Trainees
+ADD FOREIGN KEY (UserId)
+REFERENCES Users(Id);
+
+ALTER TABLE Product
+ADD FOREIGN KEY (TrainerId)
+REFERENCES Trainers(Id);
+
+ALTER TABLE Product
+ADD FOREIGN KEY (TraineeId)
+REFERENCES Trainees(Id);
+
